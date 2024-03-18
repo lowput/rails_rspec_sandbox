@@ -25,9 +25,8 @@ jobs:
           sudo apt install autoconf patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev
           git clone https://github.com/rbenv/rbenv.git ~/.rbenv
           git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-          echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-          source ~/.bashrc
-          ~/.rbenv/bin/rbenv init
+          echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+          exec $SHELL
           rbenv install -s `cat .ruby-version`
           ruby -v
           bundle install          
