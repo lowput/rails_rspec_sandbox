@@ -19,13 +19,18 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - uses: masa-iwasaki/setup-rbenv@v1
       - name: Ruby Install
         run: |
-          eval "$(rbenv init -)"
+          sudo apt update
+          sudo apt install autoconf patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev
+          git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+          git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+          echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+          ~/.rbenv/bin/rbenv init
+          source ~/.bashrc
           rbenv install -s `cat .ruby-version`
           ruby -v
-          bundle install
+          bundle install          
       - name: bundle install
         run: |
           gem install bundler
