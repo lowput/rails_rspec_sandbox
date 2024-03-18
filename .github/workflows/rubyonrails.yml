@@ -19,12 +19,22 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      # Add or replace dependency steps here
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
-        with:
-          ruby-version: '3.3.0'
-          bundler-cache: true
+      - name: Install rbenv
+        run: |
+          git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+          echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+          echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+          exec $SHELL
+          git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+      - name: Ruby Install
+        run: |
+          rbenv install 3.3.0
+          rbenv global 3.3.0
+          ruby -v
+      - name: bundle install
+        run: |
+          gem install bundler
+          bundle install
       # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load
