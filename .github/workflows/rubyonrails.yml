@@ -19,17 +19,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Ruby Install
-        run: |
-          sudo apt update
-          sudo apt install autoconf patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev
-          git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-          git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-          echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
-          exec $SHELL
-          rbenv install -s `cat .ruby-version`
-          ruby -v
-          bundle install          
+      - uses: ruby/setup-ruby@ec02537da5712d66d4d50a0f33b7eb52773b5ed1        
       - name: bundle install
         run: |
           gem install bundler
